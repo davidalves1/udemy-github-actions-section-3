@@ -13,3 +13,21 @@ jobs:
           echo "Issue event: ${{ github.event.action }}"
           echo "Issue title: ${{ github.event.issue.title }}"
           echo "Issue body: ${{ github.event.issue.body }}"
+      - name: Send email
+        uses: devellany/send-mailer@v1.0.2
+        with:
+          host: smtp.maileroo.com
+          port: 465
+          account: ${{secrets.ACCOUNT}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          sender: GithubAction
+          from: ${{secrets.MAIL_ADDRESS}}
+          to: test-rif64ntap@srv1.mail-tester.com
+          subject: mail title.
+          body: |
+            "Issue event: ${{ github.event.action }}\n"
+            "Issue title: ${{ github.event.issue.title }}\n"
+            "Issue body: ${{ github.event.issue.body }}"
+          contentType: text/plain
+          # Optional attachment files (JSON type. require property 'path')
+          # attachments: '[{"path":"README.md"}]'
